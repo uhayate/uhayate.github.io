@@ -140,7 +140,7 @@ version: &amp;quot;3&amp;quot; services: web: build: . ports: - 8888:8888  Docke
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://uhayate.me/archives/</guid>
-      <description>type: archives</description>
+      <description></description>
     </item>
     
   </channel>
