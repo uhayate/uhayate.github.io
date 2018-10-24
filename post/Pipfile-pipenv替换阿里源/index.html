@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.49.2" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Pipfile/pipenv替换阿里源 | uhayate&#39;s blog</title>
+    <meta property="og:title" content="Pipfile/pipenv替换阿里源 - uhayate&#39;s blog">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content="2018-07-03T10:50:00&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2018-07-03T10:50:00&#43;08:00">
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content="Pipfile/pipenv替换阿里源">
+        
+    <meta name="author" content="uhayate">
+    <meta property="og:url" content="http://uhayate.me/post/Pipfile-pipenv%E6%9B%BF%E6%8D%A2%E9%98%BF%E9%87%8C%E6%BA%90/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    
+    
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://uhayate.me/">
+                        uhayate&#39;s blog
+                    </a>
+                
+                <p class="description">当你的才华还撑不起你的野心时，你就应该静下心来学习。</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="http://uhayate.me/">首页</a>
+                    
+                    <a  href="http://uhayate.me/archives/" title="归档">归档</a>
+                    
+                    <a  href="http://uhayate.me/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">Pipfile/pipenv替换阿里源</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2018年7月3日
+                        </date>
+                        
+                        
+                        <div class="post-content">
+                            
+
+<h2 id="前言">前言</h2>
+
+<p>pipenv取代virtualenv的趋势非常明显，所以转到pipenv势在必行。不过pipenv创建的环境中<code>Pipfile文件</code>的源用的是官方源，在国内下载依赖肯定很慢，所以换成阿里源是个不错的选择。</p>
+
+<h2 id="操作">操作</h2>
+
+<h3 id="手动执行">手动执行</h3>
+
+<pre><code class="language-python">python3 -c &quot;from pathlib import Path;fn='Pipfile';Path(fn).write_text(Path(fn).read_text().replace('pypi.org', 'mirrors.aliyun.com/pypi'));Path(fn).write_text(Path(fn).read_text().replace('name = \&quot;pypi\&quot;', 'name = \&quot;aliyun\&quot;'))&quot;
+</code></pre>
+
+<h3 id="针对pycharm">针对PyCharm</h3>
+
+<p>每次手动执行命令很麻烦，还不如直接修改Pipfile文件呢。针对PyCharm可以利用其拓展工具来实现一键修改。</p>
+
+<h4 id="步骤">步骤</h4>
+
+<ol>
+<li><code>Preferences</code> &gt; <code>Tools</code> &gt; <code>External Tools</code> &gt; <code>点左下角+号</code></li>
+<li>配置示例
+<img src="http://pb9swxy8k.bkt.clouddn.com/2018-07-03-15305874840653.jpg" alt="" /></li>
+</ol>
+
+<p>具体配置如下：</p>
+
+<ul>
+<li><code>Program</code></li>
+</ul>
+
+<pre><code>python3
+</code></pre>
+
+<ul>
+<li><code>Arguments</code></li>
+</ul>
+
+<pre><code>-c &quot;from pathlib import Path;fn='Pipfile';Path(fn).write_text(Path(fn).read_text().replace('pypi.org', 'mirrors.aliyun.com/pypi'));Path(fn).write_text(Path(fn).read_text().replace('name = \&quot;pypi\&quot;', 'name = \&quot;aliyun\&quot;'))&quot;
+</code></pre>
+
+<ul>
+<li><code>Working directory</code></li>
+</ul>
+
+<pre><code>$ProjectFileDir$
+</code></pre>
+
+<h2 id="后话">后话</h2>
+
+<p>至此就配置好了。以后就可以在<code>External Tools</code>点击<code>Pipfile换阿里源</code>来实现一键修改文件。</p>
+
+                        </div>
+
+                        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/post/Using-Docker-mutil-stage-build/">使用Docker多步构建来创建Python应用的超小镜像</a></li>
+        
+        <li><a href="/post/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8Django%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/">如何正确使用Django时区设置</a></li>
+        
+        <li><a href="/archives/"></a></li>
+        
+    </ul>
+</div>
+
+
+                        <div class="post-meta meta-tags">
+                            
+                            <ul class="clearfix">
+                                
+                                <li><a href="/tags/Python">Python</a></li>
+                                
+                                <li><a href="/tags/pipenv">pipenv</a></li>
+                                
+                            </ul>
+                            
+                        </div>
+                    </article>
+                    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "uhayate" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://uhayate.me/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://uhayate.me/post/%E5%85%B3%E9%97%ADdep%E8%87%AA%E5%8A%A8%E7%A7%BB%E9%99%A4%E6%B2%A1%E6%9C%89%E4%BD%BF%E7%94%A8%E7%9A%84%E5%8C%85/" title="关闭dep自动移除没有使用的包">关闭dep自动移除没有使用的包</a>
+    </li>
+    
+    <li>
+        <a href="http://uhayate.me/post/%E4%BA%A4%E6%8D%A2macOS%E7%9A%84%E5%86%92%E5%8F%B7%E5%92%8C%E5%88%86%E5%8F%B7/" title="交换macOS的冒号和分号（Exchange semicolon and colon）">交换macOS的冒号和分号（Exchange semicolon and colon）</a>
+    </li>
+    
+    <li>
+        <a href="http://uhayate.me/post/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B9%E6%B3%95/" title="面向对象的方法">面向对象的方法</a>
+    </li>
+    
+    <li>
+        <a href="http://uhayate.me/post/%E5%85%B3%E4%BA%8EDict%E5%92%8COrderDict%E7%9A%84%E6%8F%92%E5%85%A5%E5%BA%8F/" title="关于Dict和OrderDict的插入序">关于Dict和OrderDict的插入序</a>
+    </li>
+    
+    <li>
+        <a href="http://uhayate.me/post/%E6%88%91%E5%A6%82%E4%BD%95%E6%95%B4%E7%90%86%E8%B5%84%E6%96%99%E5%92%8C%E6%96%87%E7%AB%A0/" title="我如何整理资料和文章">我如何整理资料和文章</a>
+    </li>
+    
+    <li>
+        <a href="http://uhayate.me/post/Pipfile-pipenv%E6%9B%BF%E6%8D%A2%E9%98%BF%E9%87%8C%E6%BA%90/" title="Pipfile/pipenv替换阿里源">Pipfile/pipenv替换阿里源</a>
+    </li>
+    
+    <li>
+        <a href="http://uhayate.me/post/Using-Docker-mutil-stage-build/" title="使用Docker多步构建来创建Python应用的超小镜像">使用Docker多步构建来创建Python应用的超小镜像</a>
+    </li>
+    
+    <li>
+        <a href="http://uhayate.me/post/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8Django%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/" title="如何正确使用Django时区设置">如何正确使用Django时区设置</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="/tags/Django/">Django</a>
+    
+    <a href="/tags/Docker/">Docker</a>
+    
+    <a href="/tags/Goland/">Goland</a>
+    
+    <a href="/tags/Python/">Python</a>
+    
+    <a href="/tags/dep/">dep</a>
+    
+    <a href="/tags/macOS/">macOS</a>
+    
+    <a href="/tags/pipenv/">pipenv</a>
+    
+</div>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2018 <a href="http://uhayate.me/">uhayate&#39;s blog By uhayate</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="http://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script type="text/javascript">
+    window.MathJax = {
+        tex2jax: {
+            inlineMath: [ ['$','$'] ],
+            processEscapes: true
+        }
+    };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+
+
+
+</body>
+</html>

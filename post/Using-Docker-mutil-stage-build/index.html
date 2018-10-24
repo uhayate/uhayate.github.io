@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.49.2" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>使用Docker多步构建来创建Python应用的超小镜像 | uhayate&#39;s blog</title>
+    <meta property="og:title" content="使用Docker多步构建来创建Python应用的超小镜像 - uhayate&#39;s blog">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content="2017-08-03T00:29:41&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2017-08-03T00:29:41&#43;08:00">
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content="使用Docker多步构建来创建Python应用的超小镜像">
+        
+    <meta name="author" content="uhayate">
+    <meta property="og:url" content="http://uhayate.me/post/Using-Docker-mutil-stage-build/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    
+    
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://uhayate.me/">
+                        uhayate&#39;s blog
+                    </a>
+                
+                <p class="description">当你的才华还撑不起你的野心时，你就应该静下心来学习。</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="http://uhayate.me/">首页</a>
+                    
+                    <a  href="http://uhayate.me/archives/" title="归档">归档</a>
+                    
+                    <a  href="http://uhayate.me/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">使用Docker多步构建来创建Python应用的超小镜像</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2017年8月3日
+                        </date>
+                        
+                        
+                        <div class="post-content">
+                            
+
+<h2 id="由来">由来</h2>
+
+<blockquote>
+<p>Multi-stage builds are a new feature in Docker 17.05</p>
+</blockquote>
+
+<p>官方文档讲述多步构建的示例是一个Go程序，Go程序本身就可以编译成可执行文件，所以使用多步构建很容易。这么好玩的功能必须要用Python实践一下咯。</p>
+
+<h2 id="demo">Demo</h2>
+
+<h3 id="demo目录">Demo目录</h3>
+
+<pre><code>tornado-multi-stage/
+    docker-compose.yml
+    Dockerfile
+    requirements.txt
+    run.py
+</code></pre>
+
+<h3 id="requirments-txt-依赖tornado">requirments.txt：依赖Tornado</h3>
+
+<pre><code>tornado==4.5.1
+</code></pre>
+
+<!--more -->
+
+<h3 id="run-py-程序入口">run.py：程序入口</h3>
+
+<p>程序实现的功能：接收到<code>GET</code>请求后返回<code>Hello World</code></p>
+
+<pre><code class="language-python">import tornado.ioloop
+import tornado.web
+
+
+class MainHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.write(&quot;Hello World&quot;)
+
+
+def make_app():
+    return tornado.web.Application([
+        (r&quot;/&quot;, MainHandler),
+    ])
+
+
+if __name__ == &quot;__main__&quot;:
+    app = make_app()
+    app.listen(8888, '0.0.0.0')
+    tornado.ioloop.IOLoop.current().start()
+
+</code></pre>
+
+<h3 id="docker-compose-yml">docker-compose.yml</h3>
+
+<p>没做什么特别的事情，就做了一下端口映射</p>
+
+<pre><code>version: &quot;3&quot;
+
+services:
+  web:
+    build: .
+    ports:
+      - 8888:8888
+</code></pre>
+
+<h3 id="dockerfile-重点">Dockerfile：重点</h3>
+
+<pre><code>FROM python:3.5 as builder
+WORKDIR /app/
+ADD . /app/
+ADD https://github.com/pyinstaller/pyinstaller/archive/develop.zip /app/pyinstaller-develop.zip
+RUN pip install -r requirements.txt &amp;&amp; \
+    pip install pyinstaller-develop.zip
+RUN pyinstaller --hidden-import=tornado --onefile -d -y run.py
+
+FROM frolvlad/alpine-glibc
+WORKDIR /app/
+COPY --from=builder /app/dist/run .
+ENTRYPOINT [&quot;./run&quot;]
+</code></pre>
+
+<p>解释一下：</p>
+
+<ul>
+<li>为了方便浏览，第八行空白行将<code>Dockerfile</code>分隔成了两部分，上面为第一次构建，下面为第二次构建</li>
+<li>第一次构建<br />
+
+<ul>
+<li>以<code>python:3.5</code>作为基础镜像，安装好依赖后，利用<code>pyinstaller</code>来</li>
+<li>打包Tornado程序打包后的可执行文件路径为<code>/app/dist/run</code></li>
+</ul></li>
+<li>第二次构建
+
+<ul>
+<li>以<code>frolvlad/alpine-glibc</code>作为基础镜像，从第一次构建的镜像中把<code>/app/dist/run</code>文件复制过来</li>
+</ul></li>
+</ul>
+
+<h3 id="效果">效果</h3>
+
+<h4 id="运行效果">运行效果</h4>
+
+<p>可以通过浏览器正常访问到应用
+<img src="http://7xrbnf.com1.z0.glb.clouddn.com/2017-08-03-15016936112084.jpg" alt="" /></p>
+
+<h4 id="镜像体积">镜像体积</h4>
+
+<p>可以将一个体积700M的镜像，缩小为20M
+<img src="http://7xrbnf.com1.z0.glb.clouddn.com/2017-08-03-15016934900934.jpg" alt="docker images" /></p>
+
+<h2 id="坑">坑</h2>
+
+<h3 id="打包工具">打包工具</h3>
+
+<p><code>pyinstaller</code>的官方说明
+&gt; Works out-of-the-box with any Python version 2.7 / 3.3-3.5</p>
+
+<ul>
+<li>踩坑第一步<br />
+我电脑系统是<code>macOS 10.12.5</code>，安装的是<code>Python 3.6.2</code>，安装了<code>PyPI</code>上的<code>pyinstaller</code>，发现本地打包会报错。于是后面我直接用<code>GitHub</code>上最新版本，结果是能成功打包，并且可执行文件可以运行，应用也可以正常工作。</li>
+<li>踩坑第二步<br />
+我用<code>python:3.6.2</code>的镜像+最新版<code>pyinstaller</code>，在容器里能打包成功，但是可执行文件运行不了。</li>
+<li>踩坑第三步<br />
+只好把基础镜像换成了<code>python:3.5</code>，这样打包出来的可执行文件正常了。</li>
+</ul>
+
+<h3 id="运行环境">运行环境</h3>
+
+<p>第二步构建的基础镜像，决定着可执行文件能不能跑起来</p>
+
+<ul>
+<li>踩坑第一步<br />
+一开始为了镜像最小化，就用了<code>alpine:latest</code>镜像，发现可执行文件根本跑不起来，会报错</li>
+</ul>
+
+<pre><code>web_1  | standard_init_linux.go:187: exec user process caused &quot;no such file or directory&quot;
+torandomultistage_web_1 exited with code 1
+</code></pre>
+
+<p>通过公司大佬指导后发现，是因为<code>alpine:latest</code>镜像里缺少<code>glibc</code></p>
+
+<ul>
+<li>踩坑第二步<br />
+在DockerHub上找到了<a href="https://hub.docker.com/r/frolvlad/alpine-glibc/">Alpine Docker image with glibc</a>，使用这个基础镜像后应用就成功运行起来了</li>
+</ul>
+
+<h2 id="btw">BTW</h2>
+
+<p>折腾需谨慎。Python应用打包成可执行文件放在一个小镜像里面跑，很不稳（手动doge）。出个错啥的都不好排查。没必要为了弄一个超小镜像给自己挖个大坑。</p>
+
+                        </div>
+
+                        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/post/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8Django%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/">如何正确使用Django时区设置</a></li>
+        
+        <li><a href="/archives/"></a></li>
+        
+    </ul>
+</div>
+
+
+                        <div class="post-meta meta-tags">
+                            
+                            <ul class="clearfix">
+                                
+                                <li><a href="/tags/Docker">Docker</a></li>
+                                
+                                <li><a href="/tags/Python">Python</a></li>
+                                
+                            </ul>
+                            
+                        </div>
+                    </article>
+                    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "uhayate" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://uhayate.me/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://uhayate.me/post/%E5%85%B3%E9%97%ADdep%E8%87%AA%E5%8A%A8%E7%A7%BB%E9%99%A4%E6%B2%A1%E6%9C%89%E4%BD%BF%E7%94%A8%E7%9A%84%E5%8C%85/" title="关闭dep自动移除没有使用的包">关闭dep自动移除没有使用的包</a>
+    </li>
+    
+    <li>
+        <a href="http://uhayate.me/post/%E4%BA%A4%E6%8D%A2macOS%E7%9A%84%E5%86%92%E5%8F%B7%E5%92%8C%E5%88%86%E5%8F%B7/" title="交换macOS的冒号和分号（Exchange semicolon and colon）">交换macOS的冒号和分号（Exchange semicolon and colon）</a>
+    </li>
+    
+    <li>
+        <a href="http://uhayate.me/post/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B9%E6%B3%95/" title="面向对象的方法">面向对象的方法</a>
+    </li>
+    
+    <li>
+        <a href="http://uhayate.me/post/%E5%85%B3%E4%BA%8EDict%E5%92%8COrderDict%E7%9A%84%E6%8F%92%E5%85%A5%E5%BA%8F/" title="关于Dict和OrderDict的插入序">关于Dict和OrderDict的插入序</a>
+    </li>
+    
+    <li>
+        <a href="http://uhayate.me/post/%E6%88%91%E5%A6%82%E4%BD%95%E6%95%B4%E7%90%86%E8%B5%84%E6%96%99%E5%92%8C%E6%96%87%E7%AB%A0/" title="我如何整理资料和文章">我如何整理资料和文章</a>
+    </li>
+    
+    <li>
+        <a href="http://uhayate.me/post/Pipfile-pipenv%E6%9B%BF%E6%8D%A2%E9%98%BF%E9%87%8C%E6%BA%90/" title="Pipfile/pipenv替换阿里源">Pipfile/pipenv替换阿里源</a>
+    </li>
+    
+    <li>
+        <a href="http://uhayate.me/post/Using-Docker-mutil-stage-build/" title="使用Docker多步构建来创建Python应用的超小镜像">使用Docker多步构建来创建Python应用的超小镜像</a>
+    </li>
+    
+    <li>
+        <a href="http://uhayate.me/post/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8Django%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/" title="如何正确使用Django时区设置">如何正确使用Django时区设置</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="/tags/Django/">Django</a>
+    
+    <a href="/tags/Docker/">Docker</a>
+    
+    <a href="/tags/Goland/">Goland</a>
+    
+    <a href="/tags/Python/">Python</a>
+    
+    <a href="/tags/dep/">dep</a>
+    
+    <a href="/tags/macOS/">macOS</a>
+    
+    <a href="/tags/pipenv/">pipenv</a>
+    
+</div>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2018 <a href="http://uhayate.me/">uhayate&#39;s blog By uhayate</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="http://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script type="text/javascript">
+    window.MathJax = {
+        tex2jax: {
+            inlineMath: [ ['$','$'] ],
+            processEscapes: true
+        }
+    };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+
+
+
+</body>
+</html>

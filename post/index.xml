@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on uhayate&#39;s blog</title>
+    <link>http://uhayate.me/post/</link>
+    <description>Recent content in Posts on uhayate&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 01 Aug 2018 14:52:11 +0000</lastBuildDate>
+    
+	<atom:link href="http://uhayate.me/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>关闭dep自动移除没有使用的包</title>
+      <link>http://uhayate.me/post/%E5%85%B3%E9%97%ADdep%E8%87%AA%E5%8A%A8%E7%A7%BB%E9%99%A4%E6%B2%A1%E6%9C%89%E4%BD%BF%E7%94%A8%E7%9A%84%E5%8C%85/</link>
+      <pubDate>Wed, 01 Aug 2018 14:52:11 +0000</pubDate>
+      
+      <guid>http://uhayate.me/post/%E5%85%B3%E9%97%ADdep%E8%87%AA%E5%8A%A8%E7%A7%BB%E9%99%A4%E6%B2%A1%E6%9C%89%E4%BD%BF%E7%94%A8%E7%9A%84%E5%8C%85/</guid>
+      <description>前言 以前不用dep，嫌它太慢了。最近更新了0.5.0版本之后我觉得速度还不错就开始使用了。 但是发现一个很坑的事情，dep会自动移除vendor内没有使用的packages、subpackages，这就导致IDE不友好了，移除了还怎么自动补全。
+正文 在dep init之后，将Gopkg.toml文件中的unused-packages = true这行删除掉即可。</description>
+    </item>
+    
+    <item>
+      <title>交换macOS的冒号和分号（Exchange semicolon and colon）</title>
+      <link>http://uhayate.me/post/%E4%BA%A4%E6%8D%A2macOS%E7%9A%84%E5%86%92%E5%8F%B7%E5%92%8C%E5%88%86%E5%8F%B7/</link>
+      <pubDate>Wed, 01 Aug 2018 10:31:30 +0000</pubDate>
+      
+      <guid>http://uhayate.me/post/%E4%BA%A4%E6%8D%A2macOS%E7%9A%84%E5%86%92%E5%8F%B7%E5%92%8C%E5%88%86%E5%8F%B7/</guid>
+      <description>前言 作为一个Golang程序员和一个伪Vim爱好者。有点烦输入冒号时要多按一个shift。
+正文 直接讲教程，照着做就好了。
+准备 需要两个工具： + 搜狗输入法（其他输入法可能也行） + Karabiner-Elements
+步骤  搜狗输入法使用来设置使用仅使用右shift来交换中英文输入（我的机器只有搜狗输入法，自带输入法被我干掉了，想干掉的话参考[原创] 完美删除自带中文输入法，只保留一个第三方输入法。） 参照Karabiner-Elementsでcolonとsemicolonを入れ替える，看不懂没关系，把下面我贴出来的json，插入~/.config/karabiner/karabiner.json -&amp;gt; profiles -&amp;gt; complex_modifications -&amp;gt; rules的数组里面即可  { &amp;quot;description&amp;quot;: &amp;quot;Swap colon and semicolon&amp;quot;, &amp;quot;manipulators&amp;quot;: [ { &amp;quot;type&amp;quot;: &amp;quot;basic&amp;quot;, &amp;quot;from&amp;quot;: { &amp;quot;key_code&amp;quot;: &amp;quot;semicolon&amp;quot;, &amp;quot;modifiers&amp;quot;: { &amp;quot;optional&amp;quot;: [ &amp;quot;caps_lock&amp;quot; ] } }, &amp;quot;to&amp;quot;: [ { &amp;quot;key_code&amp;quot;: &amp;quot;semicolon&amp;quot;, &amp;quot;modifiers&amp;quot;: [ &amp;quot;left_shift&amp;quot; ] } ] }, { &amp;quot;type&amp;quot;: &amp;quot;basic&amp;quot;, &amp;quot;from&amp;quot;: { &amp;quot;key_code&amp;quot;: &amp;quot;semicolon&amp;quot;, &amp;quot;modifiers&amp;quot;: { &amp;quot;mandatory&amp;quot;: [ &amp;quot;shift&amp;quot; ], &amp;quot;optional&amp;quot;: [ &amp;quot;caps_lock&amp;quot; ] } }, &amp;quot;to&amp;quot;: [ { &amp;quot;key_code&amp;quot;: &amp;quot;semicolon&amp;quot; } ] } ] }  后话 通过以上配置之后，就可以实现交换冒号和分号了。 需要输入分号时，注意额外按左shift，不能按右shift会出问题。</description>
+    </item>
+    
+    <item>
+      <title>面向对象的方法</title>
+      <link>http://uhayate.me/post/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Sun, 08 Jul 2018 21:37:00 +0000</pubDate>
+      
+      <guid>http://uhayate.me/post/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B9%E6%B3%95/</guid>
+      <description>Python在面向对象中提供了三种方法：实例方法、静态方法、类方法
+实例方法  实例方法必须绑定到实例对象才可调用。也就是说，实例方法只能由实例对象进行调用。 第一个参数必须要默认传实例对象，一般用self
+ class Bar(object): x = 10 def instance_method(self): print self.x # 通过实例调用：正确 test = Bar() test.instance_method() # 通过类调用：错误 Bar.instance_method()  运行结果
+10 Traceback (most recent call last): 略去... Bar.instance_method() TypeError: unbound method instance_method() must be called with Bar instance as first argument (got nothing instead)  静态方法 概述  静态方法：由@staticmethod装饰的方法 不存在任何与类、实例相关的参数，包括cls、self
+ class Bar(object): x = 10 @staticmethod def instance_method(data): print &#39;instance_method&#39;, data b = Bar() b.</description>
+    </item>
+    
+    <item>
+      <title>关于Dict和OrderDict的插入序</title>
+      <link>http://uhayate.me/post/%E5%85%B3%E4%BA%8EDict%E5%92%8COrderDict%E7%9A%84%E6%8F%92%E5%85%A5%E5%BA%8F/</link>
+      <pubDate>Fri, 06 Jul 2018 16:00:00 +0000</pubDate>
+      
+      <guid>http://uhayate.me/post/%E5%85%B3%E4%BA%8EDict%E5%92%8COrderDict%E7%9A%84%E6%8F%92%E5%85%A5%E5%BA%8F/</guid>
+      <description>前言 今天刷算法题遇到了LeetCode 146. LRU缓存机制。解这道题的时候需要用到Python的OrderDict的特性——保持元素的插入顺序。
+正文 我记得Python3.6开始，Dict已经从以前的随机顺序变为插入序了，而且Guido也明确表示在3.7版本依旧用沿用插入顺序（[Python-Dev] Guarantee ordered dict literals in v3.7?） 于是我不禁思考到，那我是不是可以偷个懒不用OrderDict去处理这种问题而直接用Dict。那到底行不行呢？翻文档啊 文档中明确写道： &amp;gt; The order-preserving aspect of this new implementation is considered an implementation detail and should not be relied upon
+后话 在Python3.6、3.7版本中Dict的实现细节中实现了元素的插入序，但是这个实现细节在以后可能是会被更改的，所以不能依赖它。并且依赖它可能会造成历史代码不兼容，或者3.8、3.9&amp;hellip;后续修改实现细节的版本的代码不兼容，假如工程师忘了这一细节的话出现bug还很难排查。 所以，用到插入序的地方还是用OrderDict吧！</description>
+    </item>
+    
+    <item>
+      <title>我如何整理资料和文章</title>
+      <link>http://uhayate.me/post/%E6%88%91%E5%A6%82%E4%BD%95%E6%95%B4%E7%90%86%E8%B5%84%E6%96%99%E5%92%8C%E6%96%87%E7%AB%A0/</link>
+      <pubDate>Wed, 04 Jul 2018 16:13:53 +0000</pubDate>
+      
+      <guid>http://uhayate.me/post/%E6%88%91%E5%A6%82%E4%BD%95%E6%95%B4%E7%90%86%E8%B5%84%E6%96%99%E5%92%8C%E6%96%87%E7%AB%A0/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Pipfile/pipenv替换阿里源</title>
+      <link>http://uhayate.me/post/Pipfile-pipenv%E6%9B%BF%E6%8D%A2%E9%98%BF%E9%87%8C%E6%BA%90/</link>
+      <pubDate>Tue, 03 Jul 2018 10:50:00 +0000</pubDate>
+      
+      <guid>http://uhayate.me/post/Pipfile-pipenv%E6%9B%BF%E6%8D%A2%E9%98%BF%E9%87%8C%E6%BA%90/</guid>
+      <description>前言 pipenv取代virtualenv的趋势非常明显，所以转到pipenv势在必行。不过pipenv创建的环境中Pipfile文件的源用的是官方源，在国内下载依赖肯定很慢，所以换成阿里源是个不错的选择。
+操作 手动执行 python3 -c &amp;quot;from pathlib import Path;fn=&#39;Pipfile&#39;;Path(fn).write_text(Path(fn).read_text().replace(&#39;pypi.org&#39;, &#39;mirrors.aliyun.com/pypi&#39;));Path(fn).write_text(Path(fn).read_text().replace(&#39;name = \&amp;quot;pypi\&amp;quot;&#39;, &#39;name = \&amp;quot;aliyun\&amp;quot;&#39;))&amp;quot;  针对PyCharm 每次手动执行命令很麻烦，还不如直接修改Pipfile文件呢。针对PyCharm可以利用其拓展工具来实现一键修改。
+步骤  Preferences &amp;gt; Tools &amp;gt; External Tools &amp;gt; 点左下角+号 配置示例   具体配置如下：
+ Program  python3   Arguments  -c &amp;quot;from pathlib import Path;fn=&#39;Pipfile&#39;;Path(fn).write_text(Path(fn).read_text().replace(&#39;pypi.org&#39;, &#39;mirrors.aliyun.com/pypi&#39;));Path(fn).write_text(Path(fn).read_text().replace(&#39;name = \&amp;quot;pypi\&amp;quot;&#39;, &#39;name = \&amp;quot;aliyun\&amp;quot;&#39;))&amp;quot;   Working directory  $ProjectFileDir$  后话 至此就配置好了。以后就可以在External Tools点击Pipfile换阿里源来实现一键修改文件。</description>
+    </item>
+    
+    <item>
+      <title>使用Docker多步构建来创建Python应用的超小镜像</title>
+      <link>http://uhayate.me/post/Using-Docker-mutil-stage-build/</link>
+      <pubDate>Thu, 03 Aug 2017 00:29:41 +0000</pubDate>
+      
+      <guid>http://uhayate.me/post/Using-Docker-mutil-stage-build/</guid>
+      <description>由来  Multi-stage builds are a new feature in Docker 17.05
+ 官方文档讲述多步构建的示例是一个Go程序，Go程序本身就可以编译成可执行文件，所以使用多步构建很容易。这么好玩的功能必须要用Python实践一下咯。
+Demo Demo目录 tornado-multi-stage/ docker-compose.yml Dockerfile requirements.txt run.py  requirments.txt：依赖Tornado tornado==4.5.1  run.py：程序入口 程序实现的功能：接收到GET请求后返回Hello World
+import tornado.ioloop import tornado.web class MainHandler(tornado.web.RequestHandler): def get(self): self.write(&amp;quot;Hello World&amp;quot;) def make_app(): return tornado.web.Application([ (r&amp;quot;/&amp;quot;, MainHandler), ]) if __name__ == &amp;quot;__main__&amp;quot;: app = make_app() app.listen(8888, &#39;0.0.0.0&#39;) tornado.ioloop.IOLoop.current().start()  docker-compose.yml 没做什么特别的事情，就做了一下端口映射
+version: &amp;quot;3&amp;quot; services: web: build: . ports: - 8888:8888  Dockerfile：重点 FROM python:3.</description>
+    </item>
+    
+    <item>
+      <title>如何正确使用Django时区设置</title>
+      <link>http://uhayate.me/post/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8Django%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/</link>
+      <pubDate>Sat, 22 Jul 2017 12:35:25 +0000</pubDate>
+      
+      <guid>http://uhayate.me/post/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8Django%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/</guid>
+      <description>&lt;h2 id=&#34;三种时间的区别&#34;&gt;三种时间的区别&lt;/h2&gt;
+
+&lt;h3 id=&#34;datetime-datetime-now&#34;&gt;datetime.datetime.now()&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;输出的永远是本地时间&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; import datetime
+&amp;gt;&amp;gt;&amp;gt; print(datetime.datetime.now())
+2017-07-22 13:06:46.837748
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;datetime-datetime-utcnow&#34;&gt;datetime.datetime.utcnow()&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;输出的永远是UTC时间&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; import datetime
+&amp;gt;&amp;gt;&amp;gt; print(datetime.datetime.utcnow())
+2017-07-22 05:06:46.837748
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

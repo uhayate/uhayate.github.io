@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Goland on uhayate&#39;s blog</title>
+    <link>http://uhayate.me/tags/Goland/</link>
+    <description>Recent content in Goland on uhayate&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 01 Aug 2018 14:52:11 +0000</lastBuildDate>
+    
+	<atom:link href="http://uhayate.me/tags/Goland/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>关闭dep自动移除没有使用的包</title>
+      <link>http://uhayate.me/post/%E5%85%B3%E9%97%ADdep%E8%87%AA%E5%8A%A8%E7%A7%BB%E9%99%A4%E6%B2%A1%E6%9C%89%E4%BD%BF%E7%94%A8%E7%9A%84%E5%8C%85/</link>
+      <pubDate>Wed, 01 Aug 2018 14:52:11 +0000</pubDate>
+      
+      <guid>http://uhayate.me/post/%E5%85%B3%E9%97%ADdep%E8%87%AA%E5%8A%A8%E7%A7%BB%E9%99%A4%E6%B2%A1%E6%9C%89%E4%BD%BF%E7%94%A8%E7%9A%84%E5%8C%85/</guid>
+      <description>前言 以前不用dep，嫌它太慢了。最近更新了0.5.0版本之后我觉得速度还不错就开始使用了。 但是发现一个很坑的事情，dep会自动移除vendor内没有使用的packages、subpackages，这就导致IDE不友好了，移除了还怎么自动补全。
+正文 在dep init之后，将Gopkg.toml文件中的unused-packages = true这行删除掉即可。</description>
+    </item>
+    
+  </channel>
+</rss>

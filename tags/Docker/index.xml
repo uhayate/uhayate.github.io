@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Docker on uhayate&#39;s blog</title>
+    <link>http://uhayate.me/tags/Docker/</link>
+    <description>Recent content in Docker on uhayate&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 03 Aug 2017 00:29:41 +0000</lastBuildDate>
+    
+	<atom:link href="http://uhayate.me/tags/Docker/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>使用Docker多步构建来创建Python应用的超小镜像</title>
+      <link>http://uhayate.me/post/Using-Docker-mutil-stage-build/</link>
+      <pubDate>Thu, 03 Aug 2017 00:29:41 +0000</pubDate>
+      
+      <guid>http://uhayate.me/post/Using-Docker-mutil-stage-build/</guid>
+      <description>由来  Multi-stage builds are a new feature in Docker 17.05
+ 官方文档讲述多步构建的示例是一个Go程序，Go程序本身就可以编译成可执行文件，所以使用多步构建很容易。这么好玩的功能必须要用Python实践一下咯。
+Demo Demo目录 tornado-multi-stage/ docker-compose.yml Dockerfile requirements.txt run.py  requirments.txt：依赖Tornado tornado==4.5.1  run.py：程序入口 程序实现的功能：接收到GET请求后返回Hello World
+import tornado.ioloop import tornado.web class MainHandler(tornado.web.RequestHandler): def get(self): self.write(&amp;quot;Hello World&amp;quot;) def make_app(): return tornado.web.Application([ (r&amp;quot;/&amp;quot;, MainHandler), ]) if __name__ == &amp;quot;__main__&amp;quot;: app = make_app() app.listen(8888, &#39;0.0.0.0&#39;) tornado.ioloop.IOLoop.current().start()  docker-compose.yml 没做什么特别的事情，就做了一下端口映射
+version: &amp;quot;3&amp;quot; services: web: build: . ports: - 8888:8888  Dockerfile：重点 FROM python:3.</description>
+    </item>
+    
+  </channel>
+</rss>

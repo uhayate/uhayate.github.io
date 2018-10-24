@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.49.2" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>交换macOS的冒号和分号（Exchange semicolon and colon） | uhayate&#39;s blog</title>
+    <meta property="og:title" content="交换macOS的冒号和分号（Exchange semicolon and colon） - uhayate&#39;s blog">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content="2018-08-01T10:31:30&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2018-08-01T10:31:30&#43;08:00">
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content="交换macOS的冒号和分号（Exchange semicolon and colon）">
+        
+    <meta name="author" content="uhayate">
+    <meta property="og:url" content="http://uhayate.me/post/%E4%BA%A4%E6%8D%A2macOS%E7%9A%84%E5%86%92%E5%8F%B7%E5%92%8C%E5%88%86%E5%8F%B7/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    
+    
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://uhayate.me/">
+                        uhayate&#39;s blog
+                    </a>
+                
+                <p class="description">当你的才华还撑不起你的野心时，你就应该静下心来学习。</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="http://uhayate.me/">首页</a>
+                    
+                    <a  href="http://uhayate.me/archives/" title="归档">归档</a>
+                    
+                    <a  href="http://uhayate.me/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">交换macOS的冒号和分号（Exchange semicolon and colon）</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2018年8月1日
+                        </date>
+                        
+                        
+                        <div class="post-content">
+                            
+
+<h2 id="前言">前言</h2>
+
+<p>作为一个Golang程序员和一个伪Vim爱好者。有点烦输入冒号时要多按一个<code>shift</code>。</p>
+
+<h2 id="正文">正文</h2>
+
+<p>直接讲教程，照着做就好了。</p>
+
+<h3 id="准备">准备</h3>
+
+<p>需要两个工具：
++ 搜狗输入法（其他输入法可能也行）
++ Karabiner-Elements</p>
+
+<h3 id="步骤">步骤</h3>
+
+<ol>
+<li>搜狗输入法使用来设置使用仅使用<code>右shift</code>来交换中英文输入（我的机器只有搜狗输入法，自带输入法被我干掉了，想干掉的话参考<a href="https://bbs.feng.com/forum.php?mod=viewthread&amp;tid=10947138&amp;orderby=dateline&amp;orderby=dateline">[原创] 完美删除自带中文输入法，只保留一个第三方输入法。</a>）</li>
+<li>参照<a href="https://moznion.hatenadiary.com/entry/2017/09/02/212719">Karabiner-Elementsでcolonとsemicolonを入れ替える</a>，看不懂没关系，把下面我贴出来的json，插入<code>~/.config/karabiner/karabiner.json</code> -&gt; <code>profiles</code> -&gt; <code>complex_modifications</code> -&gt; <code>rules</code>的数组里面即可</li>
+</ol>
+
+<pre><code class="language-json">{
+    &quot;description&quot;: &quot;Swap colon and semicolon&quot;,
+    &quot;manipulators&quot;: [
+        {
+            &quot;type&quot;: &quot;basic&quot;,
+            &quot;from&quot;: {
+                &quot;key_code&quot;: &quot;semicolon&quot;,
+                &quot;modifiers&quot;: {
+                    &quot;optional&quot;: [
+                        &quot;caps_lock&quot;
+                    ]
+                }
+            },
+            &quot;to&quot;: [
+                {
+                    &quot;key_code&quot;: &quot;semicolon&quot;,
+                    &quot;modifiers&quot;: [
+                        &quot;left_shift&quot;
+                    ]
+                }
+            ]
+        },
+        {
+            &quot;type&quot;: &quot;basic&quot;,
+            &quot;from&quot;: {
+                &quot;key_code&quot;: &quot;semicolon&quot;,
+                &quot;modifiers&quot;: {
+                    &quot;mandatory&quot;: [
+                        &quot;shift&quot;
+                    ],
+                    &quot;optional&quot;: [
+                        &quot;caps_lock&quot;
+                    ]
+                }
+            },
+            &quot;to&quot;: [
+                {
+                    &quot;key_code&quot;: &quot;semicolon&quot;
+                }
+            ]
+        }
+    ]
+}
+</code></pre>
+
+<h2 id="后话">后话</h2>
+
+<p>通过以上配置之后，就可以实现交换冒号和分号了。
+需要输入分号时，注意额外按<code>左shift</code>，不能按<code>右shift</code>会出问题。</p>
+
+                        </div>
+
+                        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/post/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B9%E6%B3%95/">面向对象的方法</a></li>
+        
+        <li><a href="/post/%E5%85%B3%E4%BA%8EDict%E5%92%8COrderDict%E7%9A%84%E6%8F%92%E5%85%A5%E5%BA%8F/">关于Dict和OrderDict的插入序</a></li>
+        
+        <li><a href="/post/%E6%88%91%E5%A6%82%E4%BD%95%E6%95%B4%E7%90%86%E8%B5%84%E6%96%99%E5%92%8C%E6%96%87%E7%AB%A0/">我如何整理资料和文章</a></li>
+        
+        <li><a href="/post/Pipfile-pipenv%E6%9B%BF%E6%8D%A2%E9%98%BF%E9%87%8C%E6%BA%90/">Pipfile/pipenv替换阿里源</a></li>
+        
+        <li><a href="/post/Using-Docker-mutil-stage-build/">使用Docker多步构建来创建Python应用的超小镜像</a></li>
+        
+    </ul>
+</div>
+
+
+                        <div class="post-meta meta-tags">
+                            
+                            <ul class="clearfix">
+                                
+                                <li><a href="/tags/macOS">macOS</a></li>
+                                
+                            </ul>
+                            
+                        </div>
+                    </article>
+                    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "uhayate" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://uhayate.me/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://uhayate.me/post/%E5%85%B3%E9%97%ADdep%E8%87%AA%E5%8A%A8%E7%A7%BB%E9%99%A4%E6%B2%A1%E6%9C%89%E4%BD%BF%E7%94%A8%E7%9A%84%E5%8C%85/" title="关闭dep自动移除没有使用的包">关闭dep自动移除没有使用的包</a>
+    </li>
+    
+    <li>
+        <a href="http://uhayate.me/post/%E4%BA%A4%E6%8D%A2macOS%E7%9A%84%E5%86%92%E5%8F%B7%E5%92%8C%E5%88%86%E5%8F%B7/" title="交换macOS的冒号和分号（Exchange semicolon and colon）">交换macOS的冒号和分号（Exchange semicolon and colon）</a>
+    </li>
+    
+    <li>
+        <a href="http://uhayate.me/post/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B9%E6%B3%95/" title="面向对象的方法">面向对象的方法</a>
+    </li>
+    
+    <li>
+        <a href="http://uhayate.me/post/%E5%85%B3%E4%BA%8EDict%E5%92%8COrderDict%E7%9A%84%E6%8F%92%E5%85%A5%E5%BA%8F/" title="关于Dict和OrderDict的插入序">关于Dict和OrderDict的插入序</a>
+    </li>
+    
+    <li>
+        <a href="http://uhayate.me/post/%E6%88%91%E5%A6%82%E4%BD%95%E6%95%B4%E7%90%86%E8%B5%84%E6%96%99%E5%92%8C%E6%96%87%E7%AB%A0/" title="我如何整理资料和文章">我如何整理资料和文章</a>
+    </li>
+    
+    <li>
+        <a href="http://uhayate.me/post/Pipfile-pipenv%E6%9B%BF%E6%8D%A2%E9%98%BF%E9%87%8C%E6%BA%90/" title="Pipfile/pipenv替换阿里源">Pipfile/pipenv替换阿里源</a>
+    </li>
+    
+    <li>
+        <a href="http://uhayate.me/post/Using-Docker-mutil-stage-build/" title="使用Docker多步构建来创建Python应用的超小镜像">使用Docker多步构建来创建Python应用的超小镜像</a>
+    </li>
+    
+    <li>
+        <a href="http://uhayate.me/post/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8Django%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/" title="如何正确使用Django时区设置">如何正确使用Django时区设置</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="/tags/Django/">Django</a>
+    
+    <a href="/tags/Docker/">Docker</a>
+    
+    <a href="/tags/Goland/">Goland</a>
+    
+    <a href="/tags/Python/">Python</a>
+    
+    <a href="/tags/dep/">dep</a>
+    
+    <a href="/tags/macOS/">macOS</a>
+    
+    <a href="/tags/pipenv/">pipenv</a>
+    
+</div>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2018 <a href="http://uhayate.me/">uhayate&#39;s blog By uhayate</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="http://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script type="text/javascript">
+    window.MathJax = {
+        tex2jax: {
+            inlineMath: [ ['$','$'] ],
+            processEscapes: true
+        }
+    };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+
+
+
+</body>
+</html>
