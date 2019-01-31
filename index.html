@@ -111,26 +111,6 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
-                                    <a href="http://uhayate.me/post/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B9%E6%B3%95/" title="面向对象的方法" >面向对象的方法</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2018年7月8日
-                            </date>
-                            
-                            <div class="post-content">
-                                Python在面向对象中提供了三种方法：实例方法、静态方法、类方法
-实例方法  实例方法必须绑定到实例对象才可调用。也就是说，实例方法只能由实例对象进行调用。 第一个参数必须要默认传实例对象，一般用self
- class Bar(object): x = 10 def instance_method(self): print self.x # 通过实例调用：正确 test = Bar() test.instance_method() # 通过类调用：错误 Bar.instance_method()  运行结果
-10 Traceback (most recent call last): 略去... Bar.instance_method() TypeError: unbound method instance_method() must be called with Bar instance as first argument (got nothing instead)  静态方法 概述  静态方法：由@staticmethod装饰的方法 不存在任何与类、实例相关的参数，包括cls、self
- class Bar(object): x = 10 @staticmethod def instance_method(data): print 'instance_method', data b = Bar() b.……
-                            </div>
-                            <p class="readmore"><a href="http://uhayate.me/post/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B9%E6%B3%95/">阅读全文</a></p>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
                                     <a href="http://uhayate.me/post/%E5%85%B3%E4%BA%8EDict%E5%92%8COrderDict%E7%9A%84%E6%8F%92%E5%85%A5%E5%BA%8F/" title="关于Dict和OrderDict的插入序" >关于Dict和OrderDict的插入序</a>
                                 </h1>
                             </header>
@@ -144,22 +124,6 @@
 后话 在Python3.6、3.7版本中Dict的实现细节中实现了元素的插入序，但是这个实现细节在以后可能是会被更改的，所以不能依赖它。并且依赖它可能会造成历史代码不兼容，或者3.8、3.9&hellip;后续修改实现细节的版本的代码不兼容，假如工程师忘了这一细节的话出现bug还很难排查。 所以，用到插入序的地方还是用OrderDict吧！……
                             </div>
                             <p class="readmore"><a href="http://uhayate.me/post/%E5%85%B3%E4%BA%8EDict%E5%92%8COrderDict%E7%9A%84%E6%8F%92%E5%85%A5%E5%BA%8F/">阅读全文</a></p>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://uhayate.me/post/%E6%88%91%E5%A6%82%E4%BD%95%E6%95%B4%E7%90%86%E8%B5%84%E6%96%99%E5%92%8C%E6%96%87%E7%AB%A0/" title="我如何整理资料和文章" >我如何整理资料和文章</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2018年7月4日
-                            </date>
-                            
-                            <div class="post-content">
-                                ……
-                            </div>
-                            <p class="readmore"><a href="http://uhayate.me/post/%E6%88%91%E5%A6%82%E4%BD%95%E6%95%B4%E7%90%86%E8%B5%84%E6%96%99%E5%92%8C%E6%96%87%E7%AB%A0/">阅读全文</a></p>
                         </article>
                     
                         <article class="post">
@@ -201,44 +165,6 @@ version: &quot;3&quot; services: web: build: . ports: - 8888:8888  Dockerfile：
                             <p class="readmore"><a href="http://uhayate.me/post/Using-Docker-mutil-stage-build/">阅读全文</a></p>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://uhayate.me/post/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8Django%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/" title="如何正确使用Django时区设置" >如何正确使用Django时区设置</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2017年7月22日
-                            </date>
-                            
-                            <div class="post-content">
-                                <h2 id="三种时间的区别">三种时间的区别</h2>
-
-<h3 id="datetime-datetime-now">datetime.datetime.now()</h3>
-
-<blockquote>
-<p>输出的永远是本地时间</p>
-</blockquote>
-
-<pre><code>&gt;&gt;&gt; import datetime
-&gt;&gt;&gt; print(datetime.datetime.now())
-2017-07-22 13:06:46.837748
-</code></pre>
-
-<h3 id="datetime-datetime-utcnow">datetime.datetime.utcnow()</h3>
-
-<blockquote>
-<p>输出的永远是UTC时间</p>
-</blockquote>
-
-<pre><code>&gt;&gt;&gt; import datetime
-&gt;&gt;&gt; print(datetime.datetime.utcnow())
-2017-07-22 05:06:46.837748
-</code></pre>……
-                            </div>
-                            <p class="readmore"><a href="http://uhayate.me/post/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8Django%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/">阅读全文</a></p>
-                        </article>
-                    
 
                     
 
@@ -271,15 +197,7 @@ version: &quot;3&quot; services: web: build: . ports: - 8888:8888  Dockerfile：
     </li>
     
     <li>
-        <a href="http://uhayate.me/post/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B9%E6%B3%95/" title="面向对象的方法">面向对象的方法</a>
-    </li>
-    
-    <li>
         <a href="http://uhayate.me/post/%E5%85%B3%E4%BA%8EDict%E5%92%8COrderDict%E7%9A%84%E6%8F%92%E5%85%A5%E5%BA%8F/" title="关于Dict和OrderDict的插入序">关于Dict和OrderDict的插入序</a>
-    </li>
-    
-    <li>
-        <a href="http://uhayate.me/post/%E6%88%91%E5%A6%82%E4%BD%95%E6%95%B4%E7%90%86%E8%B5%84%E6%96%99%E5%92%8C%E6%96%87%E7%AB%A0/" title="我如何整理资料和文章">我如何整理资料和文章</a>
     </li>
     
     <li>
@@ -288,10 +206,6 @@ version: &quot;3&quot; services: web: build: . ports: - 8888:8888  Dockerfile：
     
     <li>
         <a href="http://uhayate.me/post/Using-Docker-mutil-stage-build/" title="使用Docker多步构建来创建Python应用的超小镜像">使用Docker多步构建来创建Python应用的超小镜像</a>
-    </li>
-    
-    <li>
-        <a href="http://uhayate.me/post/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8Django%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/" title="如何正确使用Django时区设置">如何正确使用Django时区设置</a>
     </li>
     
 </ul>
@@ -313,8 +227,6 @@ version: &quot;3&quot; services: web: build: . ports: - 8888:8888  Dockerfile：
     <section class="widget">
         <h3 class="widget-title">标签</h3>
 <div class="tagcloud">
-    
-    <a href="http://uhayate.me/tags/Django/">Django</a>
     
     <a href="http://uhayate.me/tags/Docker/">Docker</a>
     

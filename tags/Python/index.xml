@@ -6,23 +6,10 @@
     <description>Recent content in Python on uhayate&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 08 Jul 2018 21:37:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 06 Jul 2018 16:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://uhayate.me/tags/Python/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>面向对象的方法</title>
-      <link>http://uhayate.me/post/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B9%E6%B3%95/</link>
-      <pubDate>Sun, 08 Jul 2018 21:37:00 +0000</pubDate>
-      
-      <guid>http://uhayate.me/post/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B9%E6%B3%95/</guid>
-      <description>Python在面向对象中提供了三种方法：实例方法、静态方法、类方法
-实例方法  实例方法必须绑定到实例对象才可调用。也就是说，实例方法只能由实例对象进行调用。 第一个参数必须要默认传实例对象，一般用self
- class Bar(object): x = 10 def instance_method(self): print self.x # 通过实例调用：正确 test = Bar() test.instance_method() # 通过类调用：错误 Bar.instance_method()  运行结果
-10 Traceback (most recent call last): 略去... Bar.instance_method() TypeError: unbound method instance_method() must be called with Bar instance as first argument (got nothing instead)  静态方法 概述  静态方法：由@staticmethod装饰的方法 不存在任何与类、实例相关的参数，包括cls、self
- class Bar(object): x = 10 @staticmethod def instance_method(data): print &#39;instance_method&#39;, data b = Bar() b.</description>
-    </item>
     
     <item>
       <title>关于Dict和OrderDict的插入序</title>
@@ -58,37 +45,6 @@
 Demo Demo目录 tornado-multi-stage/ docker-compose.yml Dockerfile requirements.txt run.py  requirments.txt：依赖Tornado tornado==4.5.1  run.py：程序入口 程序实现的功能：接收到GET请求后返回Hello World
 import tornado.ioloop import tornado.web class MainHandler(tornado.web.RequestHandler): def get(self): self.write(&amp;quot;Hello World&amp;quot;) def make_app(): return tornado.web.Application([ (r&amp;quot;/&amp;quot;, MainHandler), ]) if __name__ == &amp;quot;__main__&amp;quot;: app = make_app() app.listen(8888, &#39;0.0.0.0&#39;) tornado.ioloop.IOLoop.current().start()  docker-compose.yml 没做什么特别的事情，就做了一下端口映射
 version: &amp;quot;3&amp;quot; services: web: build: . ports: - 8888:8888  Dockerfile：重点 FROM python:3.</description>
-    </item>
-    
-    <item>
-      <title>如何正确使用Django时区设置</title>
-      <link>http://uhayate.me/post/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8Django%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/</link>
-      <pubDate>Sat, 22 Jul 2017 12:35:25 +0000</pubDate>
-      
-      <guid>http://uhayate.me/post/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8Django%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/</guid>
-      <description>&lt;h2 id=&#34;三种时间的区别&#34;&gt;三种时间的区别&lt;/h2&gt;
-
-&lt;h3 id=&#34;datetime-datetime-now&#34;&gt;datetime.datetime.now()&lt;/h3&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;输出的永远是本地时间&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; import datetime
-&amp;gt;&amp;gt;&amp;gt; print(datetime.datetime.now())
-2017-07-22 13:06:46.837748
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;datetime-datetime-utcnow&#34;&gt;datetime.datetime.utcnow()&lt;/h3&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;输出的永远是UTC时间&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; import datetime
-&amp;gt;&amp;gt;&amp;gt; print(datetime.datetime.utcnow())
-2017-07-22 05:06:46.837748
-&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
   </channel>
