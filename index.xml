@@ -129,9 +129,7 @@ version: &amp;quot;3&amp;quot; services: web: build: . ports: - 8888:8888  Docke
 &lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; import datetime
 &amp;gt;&amp;gt;&amp;gt; print(datetime.datetime.utcnow())
 2017-07-22 05:06:46.837748
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
     <item>

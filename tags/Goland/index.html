@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.49.2" />
+    <meta name="generator" content="Hugo 0.53" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -24,6 +24,9 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="alternate" type="application/rss+xml+xml" href="http://uhayate.me/tags/Goland/index.xml" title="uhayate's blog" />
     <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    
+
 
     
     
@@ -83,14 +86,8 @@
                             </date>
                             
                             <div class="post-content">
-                                <h2 id="前言">前言</h2>
-
-<p>以前不用<code>dep</code>，嫌它太慢了。最近更新了<code>0.5.0</code>版本之后我觉得速度还不错就开始使用了。
-但是发现一个很坑的事情，<code>dep</code>会自动移除<code>vendor</code>内没有使用的<code>packages</code>、<code>subpackages</code>，这就导致IDE不友好了，移除了还怎么自动补全。</p>
-
-<h2 id="正文">正文</h2>
-
-<p>在<code>dep init</code>之后，将<code>Gopkg.toml</code>文件中的<code>unused-packages = true</code>这 …</p>
+                                前言 以前不用dep，嫌它太慢了。最近更新了0.5.0版本之后我觉得速度还不错就开始使用了。 但是发现一个很坑的事情，dep会自动移除vendor内没有使用的packages、subpackages，这就导致IDE不友好了，移除了还怎么自动补全。
+正文 在dep init之后，将Gopkg.toml文件中的unused-packages = true这行删除掉即可。……
                                 <p class="readmore"><a href="http://uhayate.me/post/%E5%85%B3%E9%97%ADdep%E8%87%AA%E5%8A%A8%E7%A7%BB%E9%99%A4%E6%B2%A1%E6%9C%89%E4%BD%BF%E7%94%A8%E7%9A%84%E5%8C%85/">阅读全文</a></p>
                             </div>
                         </article>
@@ -166,19 +163,19 @@
         <h3 class="widget-title">标签</h3>
 <div class="tagcloud">
     
-    <a href="/tags/Django/">Django</a>
+    <a href="http://uhayate.me/tags/Django/">Django</a>
     
-    <a href="/tags/Docker/">Docker</a>
+    <a href="http://uhayate.me/tags/Docker/">Docker</a>
     
-    <a href="/tags/Goland/">Goland</a>
+    <a href="http://uhayate.me/tags/Goland/">Goland</a>
     
-    <a href="/tags/Python/">Python</a>
+    <a href="http://uhayate.me/tags/Python/">Python</a>
     
-    <a href="/tags/dep/">dep</a>
+    <a href="http://uhayate.me/tags/dep/">dep</a>
     
-    <a href="/tags/macOS/">macOS</a>
+    <a href="http://uhayate.me/tags/macOS/">macOS</a>
     
-    <a href="/tags/pipenv/">pipenv</a>
+    <a href="http://uhayate.me/tags/pipenv/">pipenv</a>
     
 </div>
     </section>
@@ -188,7 +185,7 @@
     <section class="widget">
         <h3 class="widget-title">其它</h3>
         <ul class="widget-list">
-            <li><a href="/index.xml">文章 RSS</a></li>
+            <li><a href="http://uhayate.me/index.xml">文章 RSS</a></li>
         </ul>
     </section>
 </div>
@@ -199,7 +196,7 @@
     <div class="container">
         &copy; 2018 <a href="http://uhayate.me/">uhayate&#39;s blog By uhayate</a>.
         Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
-        <a href="http://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
         
     </div>
 </footer>

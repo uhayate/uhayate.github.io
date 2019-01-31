@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.49.2" />
+    <meta name="generator" content="Hugo 0.53" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -24,6 +24,9 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="alternate" type="application/rss+xml+xml" href="http://uhayate.me/tags/Python/index.xml" title="uhayate's blog" />
     <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    
+
 
     
     
@@ -83,19 +86,11 @@
                             </date>
                             
                             <div class="post-content">
-                                <p>Python在面向对象中提供了三种方法：实例方法、静态方法、类方法</p>
-
-<h2 id="实例方法">实例方法</h2>
-
-<blockquote>
-<p>实例方法必须绑定到实例对象才可调用。也就是说，实例方法只能由实例对象进行调用。
-第一个参数必须要默认传实例对象，一般用<code>self</code></p>
-</blockquote>
-
-<pre><code class="language-python">class Bar(object):
-    x = 10
-
-    def instance_method(self): …</code></pre>
+                                Python在面向对象中提供了三种方法：实例方法、静态方法、类方法
+实例方法  实例方法必须绑定到实例对象才可调用。也就是说，实例方法只能由实例对象进行调用。 第一个参数必须要默认传实例对象，一般用self
+ class Bar(object): x = 10 def instance_method(self): print self.x # 通过实例调用：正确 test = Bar() test.instance_method() # 通过类调用：错误 Bar.instance_method()  运行结果
+10 Traceback (most recent call last): 略去... Bar.instance_method() TypeError: unbound method instance_method() must be called with Bar instance as first argument (got nothing instead)  静态方法 概述  静态方法：由@staticmethod装饰的方法 不存在任何与类、实例相关的参数，包括cls、self
+ class Bar(object): x = 10 @staticmethod def instance_method(data): print 'instance_method', data b = Bar() b.……
                                 <p class="readmore"><a href="http://uhayate.me/post/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B9%E6%B3%95/">阅读全文</a></p>
                             </div>
                         </article>
@@ -111,13 +106,9 @@
                             </date>
                             
                             <div class="post-content">
-                                <h2 id="前言">前言</h2>
-
-<p>今天刷算法题遇到了<a href="https://leetcode-cn.com/problems/lru-cache/description/">LeetCode 146. LRU缓存机制</a>。解这道题的时候需要用到Python的OrderDict的特性——保持元素的插入顺序。</p>
-
-<h2 id="正文">正文</h2>
-
-<p>我记得Python3.6开始，Dict已经从以前的随机顺序变为插入序了，而且Guido也明确表示在3.7版本依旧用沿用插入顺序（<a href="https://mail.python.org/pipermail/python-dev/2017-December/151283.html">[Python-Dev] Guarantee ordered …</a></p>
+                                前言 今天刷算法题遇到了LeetCode 146. LRU缓存机制。解这道题的时候需要用到Python的OrderDict的特性——保持元素的插入顺序。
+正文 我记得Python3.6开始，Dict已经从以前的随机顺序变为插入序了，而且Guido也明确表示在3.7版本依旧用沿用插入顺序（[Python-Dev] Guarantee ordered dict literals in v3.7?） 于是我不禁思考到，那我是不是可以偷个懒不用OrderDict去处理这种问题而直接用Dict。那到底行不行呢？翻文档啊 文档中明确写道： &gt; The order-preserving aspect of this new implementation is considered an implementation detail and should not be relied upon
+后话 在Python3.6、3.7版本中Dict的实现细节中实现了元素的插入序，但是这个实现细节在以后可能是会被更改的，所以不能依赖它。并且依赖它可能会造成历史代码不兼容，或者3.8、3.9&hellip;后续修改实现细节的版本的代码不兼容，假如工程师忘了这一细节的话出现bug还很难排查。 所以，用到插入序的地方还是用OrderDict吧！……
                                 <p class="readmore"><a href="http://uhayate.me/post/%E5%85%B3%E4%BA%8EDict%E5%92%8COrderDict%E7%9A%84%E6%8F%92%E5%85%A5%E5%BA%8F/">阅读全文</a></p>
                             </div>
                         </article>
@@ -133,15 +124,10 @@
                             </date>
                             
                             <div class="post-content">
-                                <h2 id="前言">前言</h2>
-
-<p>pipenv取代virtualenv的趋势非常明显，所以转到pipenv势在必行。不过pipenv创建的环境中<code>Pipfile文件</code>的源用的是官方源，在国内下载依赖肯定很慢，所以换成阿里源是个不错的选择。</p>
-
-<h2 id="操作">操作</h2>
-
-<h3 id="手动执行">手动执行</h3>
-
-<pre><code class="language-python">python3 -c &quot;from pathlib import …</code></pre>
+                                前言 pipenv取代virtualenv的趋势非常明显，所以转到pipenv势在必行。不过pipenv创建的环境中Pipfile文件的源用的是官方源，在国内下载依赖肯定很慢，所以换成阿里源是个不错的选择。
+操作 手动执行 python3 -c &quot;from pathlib import Path;fn='Pipfile';Path(fn).write_text(Path(fn).read_text().replace('pypi.org', 'mirrors.aliyun.com/pypi'));Path(fn).write_text(Path(fn).read_text().replace('name = \&quot;pypi\&quot;', 'name = \&quot;aliyun\&quot;'))&quot;  针对PyCharm 每次手动执行命令很麻烦，还不如直接修改Pipfile文件呢。针对PyCharm可以利用其拓展工具来实现一键修改。
+步骤  Preferences &gt; Tools &gt; External Tools &gt; 点左下角+号 配置示例   具体配置如下：
+ Program  python3   Arguments  -c &quot;from pathlib import Path;fn='Pipfile';Path(fn).write_text(Path(fn).read_text().replace('pypi.org', 'mirrors.aliyun.com/pypi'));Path(fn).write_text(Path(fn).read_text().replace('name = \&quot;pypi\&quot;', 'name = \&quot;aliyun\&quot;'))&quot;   Working directory  $ProjectFileDir$  后话 至此就配置好了。以后就可以在External Tools点击Pipfile换阿里源来实现一键修改文件。……
                                 <p class="readmore"><a href="http://uhayate.me/post/Pipfile-pipenv%E6%9B%BF%E6%8D%A2%E9%98%BF%E9%87%8C%E6%BA%90/">阅读全文</a></p>
                             </div>
                         </article>
@@ -157,19 +143,11 @@
                             </date>
                             
                             <div class="post-content">
-                                <h2 id="由来">由来</h2>
-
-<blockquote>
-<p>Multi-stage builds are a new feature in Docker 17.05</p>
-</blockquote>
-
-<p>官方文档讲述多步构建的示例是一个Go程序，Go程序本身就可以编译成可执行文件，所以使用多步构建很容易。这么好玩的功能必须要用Python实践一下咯。</p>
-
-<h2 id="demo">Demo</h2>
-
-<h3 id="demo目录">Demo目录</h3>
-
-<pre><code>tornado-multi-stage/ …</code></pre>
+                                由来  Multi-stage builds are a new feature in Docker 17.05
+ 官方文档讲述多步构建的示例是一个Go程序，Go程序本身就可以编译成可执行文件，所以使用多步构建很容易。这么好玩的功能必须要用Python实践一下咯。
+Demo Demo目录 tornado-multi-stage/ docker-compose.yml Dockerfile requirements.txt run.py  requirments.txt：依赖Tornado tornado==4.5.1  run.py：程序入口 程序实现的功能：接收到GET请求后返回Hello World
+import tornado.ioloop import tornado.web class MainHandler(tornado.web.RequestHandler): def get(self): self.write(&quot;Hello World&quot;) def make_app(): return tornado.web.Application([ (r&quot;/&quot;, MainHandler), ]) if __name__ == &quot;__main__&quot;: app = make_app() app.listen(8888, '0.0.0.0') tornado.ioloop.IOLoop.current().start()  docker-compose.yml 没做什么特别的事情，就做了一下端口映射
+version: &quot;3&quot; services: web: build: . ports: - 8888:8888  Dockerfile：重点 FROM python:3.……
                                 <p class="readmore"><a href="http://uhayate.me/post/Using-Docker-mutil-stage-build/">阅读全文</a></p>
                             </div>
                         </article>
@@ -201,7 +179,13 @@
 <h3 id="datetime-datetime-utcnow">datetime.datetime.utcnow()</h3>
 
 <blockquote>
-<p>输 …</p></blockquote>
+<p>输出的永远是UTC时间</p>
+</blockquote>
+
+<pre><code>&gt;&gt;&gt; import datetime
+&gt;&gt;&gt; print(datetime.datetime.utcnow())
+2017-07-22 05:06:46.837748
+</code></pre>……
                                 <p class="readmore"><a href="http://uhayate.me/post/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8Django%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/">阅读全文</a></p>
                             </div>
                         </article>
@@ -277,19 +261,19 @@
         <h3 class="widget-title">标签</h3>
 <div class="tagcloud">
     
-    <a href="/tags/Django/">Django</a>
+    <a href="http://uhayate.me/tags/Django/">Django</a>
     
-    <a href="/tags/Docker/">Docker</a>
+    <a href="http://uhayate.me/tags/Docker/">Docker</a>
     
-    <a href="/tags/Goland/">Goland</a>
+    <a href="http://uhayate.me/tags/Goland/">Goland</a>
     
-    <a href="/tags/Python/">Python</a>
+    <a href="http://uhayate.me/tags/Python/">Python</a>
     
-    <a href="/tags/dep/">dep</a>
+    <a href="http://uhayate.me/tags/dep/">dep</a>
     
-    <a href="/tags/macOS/">macOS</a>
+    <a href="http://uhayate.me/tags/macOS/">macOS</a>
     
-    <a href="/tags/pipenv/">pipenv</a>
+    <a href="http://uhayate.me/tags/pipenv/">pipenv</a>
     
 </div>
     </section>
@@ -299,7 +283,7 @@
     <section class="widget">
         <h3 class="widget-title">其它</h3>
         <ul class="widget-list">
-            <li><a href="/index.xml">文章 RSS</a></li>
+            <li><a href="http://uhayate.me/index.xml">文章 RSS</a></li>
         </ul>
     </section>
 </div>
@@ -310,7 +294,7 @@
     <div class="container">
         &copy; 2018 <a href="http://uhayate.me/">uhayate&#39;s blog By uhayate</a>.
         Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
-        <a href="http://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
         
     </div>
 </footer>

@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.49.2" />
+    <meta name="generator" content="Hugo 0.53" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -24,6 +24,9 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="alternate" type="application/rss+xml+xml" href="http://uhayate.me/tags/Docker/index.xml" title="uhayate's blog" />
     <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    
+
 
     
     
@@ -83,19 +86,11 @@
                             </date>
                             
                             <div class="post-content">
-                                <h2 id="由来">由来</h2>
-
-<blockquote>
-<p>Multi-stage builds are a new feature in Docker 17.05</p>
-</blockquote>
-
-<p>官方文档讲述多步构建的示例是一个Go程序，Go程序本身就可以编译成可执行文件，所以使用多步构建很容易。这么好玩的功能必须要用Python实践一下咯。</p>
-
-<h2 id="demo">Demo</h2>
-
-<h3 id="demo目录">Demo目录</h3>
-
-<pre><code>tornado-multi-stage/ …</code></pre>
+                                由来  Multi-stage builds are a new feature in Docker 17.05
+ 官方文档讲述多步构建的示例是一个Go程序，Go程序本身就可以编译成可执行文件，所以使用多步构建很容易。这么好玩的功能必须要用Python实践一下咯。
+Demo Demo目录 tornado-multi-stage/ docker-compose.yml Dockerfile requirements.txt run.py  requirments.txt：依赖Tornado tornado==4.5.1  run.py：程序入口 程序实现的功能：接收到GET请求后返回Hello World
+import tornado.ioloop import tornado.web class MainHandler(tornado.web.RequestHandler): def get(self): self.write(&quot;Hello World&quot;) def make_app(): return tornado.web.Application([ (r&quot;/&quot;, MainHandler), ]) if __name__ == &quot;__main__&quot;: app = make_app() app.listen(8888, '0.0.0.0') tornado.ioloop.IOLoop.current().start()  docker-compose.yml 没做什么特别的事情，就做了一下端口映射
+version: &quot;3&quot; services: web: build: . ports: - 8888:8888  Dockerfile：重点 FROM python:3.……
                                 <p class="readmore"><a href="http://uhayate.me/post/Using-Docker-mutil-stage-build/">阅读全文</a></p>
                             </div>
                         </article>
@@ -171,19 +166,19 @@
         <h3 class="widget-title">标签</h3>
 <div class="tagcloud">
     
-    <a href="/tags/Django/">Django</a>
+    <a href="http://uhayate.me/tags/Django/">Django</a>
     
-    <a href="/tags/Docker/">Docker</a>
+    <a href="http://uhayate.me/tags/Docker/">Docker</a>
     
-    <a href="/tags/Goland/">Goland</a>
+    <a href="http://uhayate.me/tags/Goland/">Goland</a>
     
-    <a href="/tags/Python/">Python</a>
+    <a href="http://uhayate.me/tags/Python/">Python</a>
     
-    <a href="/tags/dep/">dep</a>
+    <a href="http://uhayate.me/tags/dep/">dep</a>
     
-    <a href="/tags/macOS/">macOS</a>
+    <a href="http://uhayate.me/tags/macOS/">macOS</a>
     
-    <a href="/tags/pipenv/">pipenv</a>
+    <a href="http://uhayate.me/tags/pipenv/">pipenv</a>
     
 </div>
     </section>
@@ -193,7 +188,7 @@
     <section class="widget">
         <h3 class="widget-title">其它</h3>
         <ul class="widget-list">
-            <li><a href="/index.xml">文章 RSS</a></li>
+            <li><a href="http://uhayate.me/index.xml">文章 RSS</a></li>
         </ul>
     </section>
 </div>
@@ -204,7 +199,7 @@
     <div class="container">
         &copy; 2018 <a href="http://uhayate.me/">uhayate&#39;s blog By uhayate</a>.
         Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
-        <a href="http://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
         
     </div>
 </footer>

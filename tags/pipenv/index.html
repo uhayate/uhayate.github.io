@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.49.2" />
+    <meta name="generator" content="Hugo 0.53" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -24,6 +24,9 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="alternate" type="application/rss+xml+xml" href="http://uhayate.me/tags/pipenv/index.xml" title="uhayate's blog" />
     <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    
+
 
     
     
@@ -83,15 +86,10 @@
                             </date>
                             
                             <div class="post-content">
-                                <h2 id="前言">前言</h2>
-
-<p>pipenv取代virtualenv的趋势非常明显，所以转到pipenv势在必行。不过pipenv创建的环境中<code>Pipfile文件</code>的源用的是官方源，在国内下载依赖肯定很慢，所以换成阿里源是个不错的选择。</p>
-
-<h2 id="操作">操作</h2>
-
-<h3 id="手动执行">手动执行</h3>
-
-<pre><code class="language-python">python3 -c &quot;from pathlib import …</code></pre>
+                                前言 pipenv取代virtualenv的趋势非常明显，所以转到pipenv势在必行。不过pipenv创建的环境中Pipfile文件的源用的是官方源，在国内下载依赖肯定很慢，所以换成阿里源是个不错的选择。
+操作 手动执行 python3 -c &quot;from pathlib import Path;fn='Pipfile';Path(fn).write_text(Path(fn).read_text().replace('pypi.org', 'mirrors.aliyun.com/pypi'));Path(fn).write_text(Path(fn).read_text().replace('name = \&quot;pypi\&quot;', 'name = \&quot;aliyun\&quot;'))&quot;  针对PyCharm 每次手动执行命令很麻烦，还不如直接修改Pipfile文件呢。针对PyCharm可以利用其拓展工具来实现一键修改。
+步骤  Preferences &gt; Tools &gt; External Tools &gt; 点左下角+号 配置示例   具体配置如下：
+ Program  python3   Arguments  -c &quot;from pathlib import Path;fn='Pipfile';Path(fn).write_text(Path(fn).read_text().replace('pypi.org', 'mirrors.aliyun.com/pypi'));Path(fn).write_text(Path(fn).read_text().replace('name = \&quot;pypi\&quot;', 'name = \&quot;aliyun\&quot;'))&quot;   Working directory  $ProjectFileDir$  后话 至此就配置好了。以后就可以在External Tools点击Pipfile换阿里源来实现一键修改文件。……
                                 <p class="readmore"><a href="http://uhayate.me/post/Pipfile-pipenv%E6%9B%BF%E6%8D%A2%E9%98%BF%E9%87%8C%E6%BA%90/">阅读全文</a></p>
                             </div>
                         </article>
@@ -167,19 +165,19 @@
         <h3 class="widget-title">标签</h3>
 <div class="tagcloud">
     
-    <a href="/tags/Django/">Django</a>
+    <a href="http://uhayate.me/tags/Django/">Django</a>
     
-    <a href="/tags/Docker/">Docker</a>
+    <a href="http://uhayate.me/tags/Docker/">Docker</a>
     
-    <a href="/tags/Goland/">Goland</a>
+    <a href="http://uhayate.me/tags/Goland/">Goland</a>
     
-    <a href="/tags/Python/">Python</a>
+    <a href="http://uhayate.me/tags/Python/">Python</a>
     
-    <a href="/tags/dep/">dep</a>
+    <a href="http://uhayate.me/tags/dep/">dep</a>
     
-    <a href="/tags/macOS/">macOS</a>
+    <a href="http://uhayate.me/tags/macOS/">macOS</a>
     
-    <a href="/tags/pipenv/">pipenv</a>
+    <a href="http://uhayate.me/tags/pipenv/">pipenv</a>
     
 </div>
     </section>
@@ -189,7 +187,7 @@
     <section class="widget">
         <h3 class="widget-title">其它</h3>
         <ul class="widget-list">
-            <li><a href="/index.xml">文章 RSS</a></li>
+            <li><a href="http://uhayate.me/index.xml">文章 RSS</a></li>
         </ul>
     </section>
 </div>
@@ -200,7 +198,7 @@
     <div class="container">
         &copy; 2018 <a href="http://uhayate.me/">uhayate&#39;s blog By uhayate</a>.
         Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
-        <a href="http://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
         
     </div>
 </footer>
