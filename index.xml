@@ -141,5 +141,14 @@ version: &amp;quot;3&amp;quot; services: web: build: . ports: - 8888:8888  Docke
       <description></description>
     </item>
     
+    <item>
+      <title></title>
+      <link>http://uhayate.me/googlebecf0ed4a8e01fc8/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://uhayate.me/googlebecf0ed4a8e01fc8/</guid>
+      <description>google-site-verification: googlebecf0ed4a8e01fc8.</description>
+    </item>
+    
   </channel>
 </rss>
