@@ -85,7 +85,7 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
-                                    <a href="http://uhayate.me/post/%E4%BA%A4%E6%8D%A2macOS%E7%9A%84%E5%86%92%E5%8F%B7%E5%92%8C%E5%88%86%E5%8F%B7/" title="交换macOS的冒号和分号（Exchange semicolon and colon）" >交换macOS的冒号和分号（Exchange semicolon and colon）</a>
+                                    <a href="http://uhayate.me/post/exchange-semicolon-and-colon-on-macOS/" title="交换mac键盘的冒号和分号" >交换mac键盘的冒号和分号</a>
                                 </h1>
                             </header>
                             <date class="post-meta meta-date">
@@ -100,12 +100,17 @@
                             </div>
                             
                             <div class="post-content">
-                                前言 作为一个Golang程序员和一个伪Vim爱好者。有点烦输入冒号时要多按一个shift。
-正文 直接讲教程，照着做就好了。
-准备 需要两个工具： + 搜狗输入法（其他输入法可能也行） + Karabiner-Elements
-步骤  搜狗输入法使用来设置使用仅使用右shift来交换中英文输入（我的机器只有搜狗输入法，自带输入法被我干掉了，想干掉的话参考[原创] 完美删除自带中文输入法，只保留一个第三方输入法。） 参照Karabiner-Elementsでcolonとsemicolonを入れ替える，看不懂没关系，把下面我贴出来的json，插入~/.config/karabiner/karabiner.json -&gt; profiles -&gt; complex_modifications -&gt; rules的数组里面即可  { &quot;description&quot;: &quot;Swap colon and semicolon&quot;, &quot;manipulators&quot;: [ { &quot;type&quot;: &quot;basic&quot;, &quot;from&quot;: { &quot;key_code&quot;: &quot;semicolon&quot;, &quot;modifiers&quot;: { &quot;optional&quot;: [ &quot;caps_lock&quot; ] } }, &quot;to&quot;: [ { &quot;key_code&quot;: &quot;semicolon&quot;, &quot;modifiers&quot;: [ &quot;left_shift&quot; ] } ] }, { &quot;type&quot;: &quot;basic&quot;, &quot;from&quot;: { &quot;key_code&quot;: &quot;semicolon&quot;, &quot;modifiers&quot;: { &quot;mandatory&quot;: [ &quot;shift&quot; ], &quot;optional&quot;: [ &quot;caps_lock&quot; ] } }, &quot;to&quot;: [ { &quot;key_code&quot;: &quot;semicolon&quot; } ] } ] }  后话 通过以上配置之后，就可以实现交换冒号和分号了。 需要输入分号时，注意额外按左shift，不能按右shift会出问题。……
+                                <h2 id="前言">前言</h2>
+
+<p>作为一个Golang程序员和一个伪Vim爱好者。厌烦了输入冒号时要多按一个<code>shift</code>。</p>
+
+<h2 id="准备工具">准备工具</h2>
+
+<ul>
+<li>Karabiner-Elements</li>
+</ul>……
                             </div>
-                            <p class="readmore"><a href="http://uhayate.me/post/%E4%BA%A4%E6%8D%A2macOS%E7%9A%84%E5%86%92%E5%8F%B7%E5%92%8C%E5%88%86%E5%8F%B7/">阅读全文</a></p>
+                            <p class="readmore"><a href="http://uhayate.me/post/exchange-semicolon-and-colon-on-macOS/">阅读全文</a></p>
                         </article>
                     
                         <article class="post">
@@ -193,7 +198,7 @@ version: &quot;3&quot; services: web: build: . ports: - 8888:8888  Dockerfile：
     </li>
     
     <li>
-        <a href="http://uhayate.me/post/%E4%BA%A4%E6%8D%A2macOS%E7%9A%84%E5%86%92%E5%8F%B7%E5%92%8C%E5%88%86%E5%8F%B7/" title="交换macOS的冒号和分号（Exchange semicolon and colon）">交换macOS的冒号和分号（Exchange semicolon and colon）</a>
+        <a href="http://uhayate.me/post/exchange-semicolon-and-colon-on-macOS/" title="交换mac键盘的冒号和分号">交换mac键盘的冒号和分号</a>
     </li>
     
     <li>
@@ -231,6 +236,8 @@ version: &quot;3&quot; services: web: build: . ports: - 8888:8888  Dockerfile：
     <a href="http://uhayate.me/tags/Docker/">Docker</a>
     
     <a href="http://uhayate.me/tags/Goland/">Goland</a>
+    
+    <a href="http://uhayate.me/tags/Karabiner-Elements/">Karabiner-Elements</a>
     
     <a href="http://uhayate.me/tags/Python/">Python</a>
     
